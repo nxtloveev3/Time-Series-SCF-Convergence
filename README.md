@@ -1,7 +1,7 @@
 # Time-Series-SCF-Convergence
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.9+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Paper](https://img.shields.io/badge/Paper-ChemRxiv-red.svg)](https://doi.org/10.26434/chemrxiv.15001181/v2) **Accelerating Quantum Chemistry Automation: Early Detection and Recovery of SCF Convergence Failure via Time Series Feature Extraction**
 
 ## Overview
@@ -34,8 +34,8 @@ By treating the electronic descriptors in the early SCF iterations as a time-ser
 Clone the repository and install the required dependencies. We recommend using a `conda` virtual environment.
 
 ```bash
-git clone [https://github.com/YourUsername/TS-ML-SCF-Convergence.git](https://github.com/YourUsername/TS-ML-SCF-Convergence.git)
-cd TS-ML-SCF-Convergence
+git clone [https://github.com/nxtloveev3/Time-Series-SCF-Convergence.git](https://github.com/nxtloveev3/Time-Series-SCF-Convergence.git)
+cd Time-Series-SCF-Convergence
 conda create -n ts-scf python=3.9
 conda activate ts-scf
 pip install -r requirements.txt

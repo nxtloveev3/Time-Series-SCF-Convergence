@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![DOI](https://img.shields.io/badge/DOI-Pending-green.svg)](#) [![Paper](https://img.shields.io/badge/Paper-JCTC-red.svg)](#) **An early-warning predictor and $\beta$-RST corrector framework for high-throughput SCF calculations, leveraging time-series feature extraction and Bayesian optimization to automate convergence recovery.**
+[![DOI](https://img.shields.io/badge/DOI-green.svg)](doi.org/10.26434/chemrxiv.15001181/v2) [![Paper](https://img.shields.io/badge/Paper-ChemRxiv-red.svg)](#) **Accelerating Quantum Chemistry Automation: Early Detection and Recovery of SCF Convergence Failure via Time Series Feature Extraction**
 
 ## Overview
 Self-consistent field (SCF) convergence failures remain a major bottleneck in high-throughput quantum chemistry, particularly for open-shell systems. `TS-ML-SCF-Convergence` provides a software-agnostic, data-efficient machine learning pipeline to proactively detect and correct these failures. 

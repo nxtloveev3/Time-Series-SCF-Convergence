@@ -39,3 +39,26 @@ cd Time-Series-SCF-Convergence
 conda create -n ts-scf python=3.9
 conda activate ts-scf
 pip install -r requirements.txt
+
+---
+
+## Data Availability
+
+---
+
+## Repository Structure
+Time-Series-SCF-Convergence/
+├── data/                  # Data directory
+│   ├── sample_outputs/    # Raw sample SCF output logs (TeraChem)
+│   └── features/          # Extracted time-series features sets for iSmall, iMedium, and iLarge
+├── models/                # Pre-trained GBC weights and scalers
+├── src/                   # Adaptive level shifting workflow modules (functions only)
+│   ├── extractors/         # Log parsing and time-series feature generation
+│   ├── ml_optimization/   # GBC model's optimization
+│   └── bo_heuristics/     # Bayesian Optimization of 
+├── scripts/               # Executable scripts for the adaptive level shifting workflow
+│   ├── 01_features_extraction.py
+│   ├── 02_classifier_training.py
+│   └── 03_deployment_with_beta_rst.py
+├── requirements.ymal      # Environment dependencies
+└── README.md

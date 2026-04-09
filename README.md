@@ -34,12 +34,12 @@ By treating the electronic descriptors in the early SCF iterations as a time-ser
 Clone the repository and install the required dependencies. We recommend using a `conda` virtual environment.
 
 ```bash
-git clone [https://github.com/nxtloveev3/Time-Series-SCF-Convergence.git](https://github.com/nxtloveev3/Time-Series-SCF-Convergence.git)
+git clone https://github.com/nxtloveev3/Time-Series-SCF-Convergence.git
 cd Time-Series-SCF-Convergence
 conda create -n ts-scf python=3.9
 conda activate ts-scf
-pip install -r requirements.txt
-
+pip install -r requirements.ymal
+```
 ---
 
 ## Data Availability

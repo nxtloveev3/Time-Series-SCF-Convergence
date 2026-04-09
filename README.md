@@ -47,6 +47,7 @@ pip install -r requirements.ymal
 ---
 
 ## Repository Structure
+```bash
 Time-Series-SCF-Convergence/
 ├── data/                  # Data directory
 │   ├── sample_outputs/    # Raw sample SCF output logs (TeraChem)
@@ -62,3 +63,16 @@ Time-Series-SCF-Convergence/
 │   └── 03_deployment_with_beta_rst.py
 ├── requirements.ymal      # Environment dependencies
 └── README.md
+```
+---
+
+## Usage
+
+---
+
+## Citation
+
+---
+
+## Acknowledgement
+L.D. acknowledges joint financial support from the DOE Office of Science Early Career Research Program Award, managed by the DOE BES CPIMS program under Award No. DE- SC0025345, and the Research Corporation for Science Advancement via the Cottrell Scholar Award #CS-CSA-2024-099. This research used the resources of the National Energy Research Scientific Computing Center, a DOE Office of Science User Facility supported by the Office of Science of the U.S. Department of Energy under Contract No. DE-AC02-05CH11231 using NERSC award BES-ERCAP0033060.<img width="468" height="97" alt="image" src="https://github.com/user-attachments/assets/067e038e-38ae-4d4c-8eea-8b5324d27297" />

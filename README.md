@@ -17,30 +17,13 @@ By treating the electronic descriptors in the early SCF iterations as a time-ser
 ---
 
 ## Table of Contents
-1. [Installation](#installation)
-2. [Data Availability](#data-availability)
-3. [Repository Structure](#repository-structure)
-4. [Usage](#usage)
+1. [Data Availability](#data-availability)
+2. [Repository Structure](#repository-structure)
+3. [Usage](#usage)
     * [1. Feature Extraction](#1-feature-extraction)
-    * [2. Model Training](#2-model-training)
-    * [3. Adaptive Recovery ($\beta$-RST)](#3-adaptive-recovery--rst)
-5. [Citation](#citation)
-6. [Acknowledgments](#acknowledgments)
-
----
-
-## Installation
-
-Clone the repository and install the required dependencies. We recommend using a `conda` virtual environment.
-
-```bash
-git clone https://github.com/nxtloveev3/Time-Series-SCF-Convergence.git
-cd Time-Series-SCF-Convergence
-conda create -n ts-scf python=3.9
-conda activate ts-scf
-pip install -r requirements.ymal
-```
----
+    * [2. Adaptive Recovery in PySCF](#2-deployment-with-beta-rst)
+4. [Citation](#citation)
+5. [Acknowledgments](#acknowledgments)
 
 ## Data Availability
 
@@ -49,19 +32,17 @@ pip install -r requirements.ymal
 ## Repository Structure
 ```bash
 Time-Series-SCF-Convergence/
-├── data/                  # Data directory
-│   ├── sample_outputs/    # Raw sample SCF output logs (TeraChem)
-│   └── features/          # Extracted time-series features sets for iSmall, iMedium, and iLarge
-├── models/                # Pre-trained GBC weights and scalers
-├── src/                   # Adaptive level shifting workflow modules (functions only)
-│   ├── extractors/         # Log parsing and time-series feature generation
-│   ├── ml_optimization/   # GBC model's optimization
-│   └── bo_heuristics/     # Bayesian Optimization of 
-├── scripts/               # Executable scripts for the adaptive level shifting workflow
-│   ├── 01_features_extraction.py
-│   ├── 02_classifier_training.py
-│   └── 03_deployment_with_beta_rst.py
-├── requirements.ymal      # Environment dependencies
+├── data/                              # Data directory
+│   ├── sample_outputs/                # Raw sample SCF output logs (TeraChem)
+│   └── features/                      # Extracted time-series features sets for iSmall, iMedium, and iLarge
+├── models/                            # Pre-trained GBC weights and scalers
+├── src/                               # Adaptive level shifting workflow modules
+│   ├── extractors/                    # Log parsing and time-series feature generation
+│   └── heuristics_implementation/     # Packaging adpative level shifting approach to be used in QC softwares
+├── scripts/                           # Executable scripts for the adaptive level shifting workflow
+│   ├── 01_features_extraction.py      # Demonstration of feature extraction process for the sample SCF output logs
+│   └── 02_deployment_with_beta_rst.py # Demonstration of running beta-RST heuristic with PySCF
+├── requirements.ymal                  # Environment dependencies
 └── README.md
 ```
 ---

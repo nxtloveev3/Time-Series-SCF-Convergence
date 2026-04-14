@@ -41,8 +41,8 @@ Time-Series-SCF-Convergence/
 │   └── heuristics_implementation/     # Packaging adpative level shifting approach to be used in QC softwares
 ├── scripts/                           # Executable scripts for the adaptive level shifting workflow
 │   ├── 01_features_extraction.py      # Demonstration of feature extraction process for the sample SCF output logs
-│   └── 02_deployment_with_beta_rst.py # Demonstration of running beta-RST heuristic with PySCF
-├── requirements.ymal                  # Environment dependencies
+│   └── 02_adaptive_shifting_pyscf.py  # Demonstration of running beta-RST heuristic with PySCF
+├── requirements.yml                   # Environment dependencies
 └── README.md
 ```
 ---

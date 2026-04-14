@@ -1,0 +1,19 @@
+name: adap_scf_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn=1.6.1
+  - onnx
+  - skl2onnx
+  
+  # ----------------------------------------------------
+  # Use PIP to install the custom PySCF from GitHub
+  # ----------------------------------------------------
+  - pip
+  - pip:
+      - git+https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting.git

@@ -10,7 +10,7 @@ src_path = str(script_dir.parent / "src")
 if src_path not in sys.path:
     sys.path.append(src_path)
 
-from heuristics_implementation import adaptive_PySCF
+from heuristic_implementation import adaptive_PySCF
 
 def main():
     parser = argparse.ArgumentParser(

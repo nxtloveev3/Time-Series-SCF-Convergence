@@ -48,7 +48,8 @@ Time-Series-SCF-Convergence/
 ---
 
 ## Usage
-We recommend using Conda (or Mamba) to install the required dependencies and ensure version compatibility:
+We recommend using Conda (or Mamba) to install the required dependencies and ensure version compatibility.
+
 First, clone the repository and navigate into it:
 ```bash
 git clone https://github.com/yourusername/Time-Series-SCF-Convergence.git

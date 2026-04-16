@@ -29,8 +29,8 @@ def to_onnx(file_path, model_size="iSmall", num_features=6):
 
     output_filename = f"gbc_{model_size}.onnx"
     output_filepath = os.path.join(file_path, output_filename)
-    onnx.save_model(onnx_model, output_filename)
-    print(f"Successfully exported ONNX model to {output_filename}")
+    onnx.save_model(onnx_model, output_filepath)
+    print(f"Successfully exported ONNX model to {output_filepath}")
 
 
 def extract_molecule_PySCF(file_path, basis='6-31++G**'):

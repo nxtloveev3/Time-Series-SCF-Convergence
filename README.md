@@ -81,7 +81,7 @@ python feature_extraction.py`
 
 ## 2. Deployment with Beta-RST
 
-The `adaptive_shifting_pyscf.py` script serves as the deployment-ready PySCF implementation of the **$\beta$-RST** logic. It acts as an automated "supervisor" for PySCF calculations, using the pre-trained GBC to predict and mitigate convergence failures in real-time.
+The `adaptive_shifting_pyscf.py` script serves as the deployment-ready [PySCF](https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting) implementation of the **$\beta$-RST** logic. It acts as an automated "supervisor" for PySCF calculations, using the pre-trained GBC to predict and mitigate convergence failures in real-time.
 
 ### Execution
 Navigate to the [`Scripts`](./Scripts/) directory and run the extraction:
@@ -94,89 +94,20 @@ python ./scripts/adaptive_shifting_pyscf.py \
     --max_attempts 10
 ```
 
-# Native C/C++ Inference with ONNX
+### Implement Our Model with C/C++ Inference 
 For high-performance integration into quanutm chemistry packages (e.g., C, C++, wrappers), we provide a workflow to export the trained GBC to the **ONNX (Open Neural Network Exchange)** format. 
 
 This allows the $\beta$-RST logic to be implemented natively using the [ONNX Runtime (ORT)](https://onnxruntime.ai/) without requiring a Python interpreter at runtime.
 
-1. Exporting the Model
-
-Use the provided `to_onnx` utility in the [`src`](./src/) library to convert your `.pkl` weights into a `.onnx` binary.
+To export our model you can use the provided `to_onnx` utility in the [`src`](./src/) library to convert your `.pkl` weights into a `.onnx` binary.
 
 ```python
 from src.heuristic_implementation.py import to_onnx
 
 # Converts the 'iMedium' model to ONNX
 to_onnx(file_path="./Models/iMedium_model.pkl", model_size="iSmall", num_features=6)
-
-2. Initialize model
-
-Load the model into memory and set up the inference environment.
-
-```c
-int init_predictor(const char *model_path)
-{
-    ort = OrtGetApiBase()->GetApi(ORT_API_VERSION);
-    if (!ort) { fprintf(stderr, "Could not get ORT API\n"); return -1; }
-
-    /* 1.  environment */
-    ORTCHK( ort->CreateEnv(ORT_LOGGING_LEVEL_WARNING,
-                           "levelshift", &env) );
-
-    /* 2.  session options */
-    OrtSessionOptions *opts = NULL;
-    ORTCHK( ort->CreateSessionOptions(&opts) );
-    ort->SetIntraOpNumThreads(opts, 1);   // no per-core pinning
-    ort->SetInterOpNumThreads(opts, 1);   // optional, keeps things single-threaded
-    ORTCHK( ort->SetSessionGraphOptimizationLevel(opts,
-                                                  ORT_ENABLE_BASIC) );
-
-    /* 3.  session */
-    printf("Loading ONNX model: %s\n", model_path);
-    ORTCHK( ort->CreateSession(env, model_path, opts, &sess) );
-    ort->ReleaseSessionOptions(opts);
-
-    /* 4.  CPU memory info handle */
-    ORTCHK( ort->CreateCpuMemoryInfo(OrtDeviceAllocator,
-                                     OrtMemTypeDefault, &memcpu) );
-
-    return 0;           /* success */
-}
 ```
-
-3. Inference Implementation
-
-Pass the 6 extracted features to obtain the probability of convergence failure.
-
-```c
-float predict_levelshift_prob(const float feats[6])
-{
-    const int64_t shape[2] = {1, 6};
-    OrtValue *x   = NULL;
-    OrtValue *out = NULL;
-
-    _check(ort->CreateTensorWithDataAsOrtValue(
-               memcpu, (void*)feats, 6*sizeof(float),
-               shape, 2, ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT, &x),
-           "create tensor");
-
-    const char *in_names[]  = {"x"};
-    const char *out_names[] = {"probabilities"};   /* adjust if needed */
-
-    _check(ort->Run(sess, NULL,
-                    in_names,  &x,   1,
-                    out_names, 1,    &out),
-           "OrtRun");
-
-    float *p = NULL;
-    _check(ort->GetTensorMutableData(out, (void**)&p), "mutable data");
-
-    float prob = p[1];
-    ort->ReleaseValue(out);
-    ort->ReleaseValue(x);
-    return prob;
-}
-```
+Once the model is converted, you can implement the initialization and probability inference functions by following the reference code in [`src`](./src/c_implementation)
 
 ---
 

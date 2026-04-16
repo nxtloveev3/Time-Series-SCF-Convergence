@@ -73,7 +73,7 @@ Next, install the custom PySCF with adaptive level shifting:
 ```bash
 pip install git+https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting.git
 ```
-Because [`pip`] do not automatically transfer large binary files like the pretrained model during a GitHub source installation you have to copy the pre-trained model into your Conda environment's PySCF directory:
+Because `pip` do not automatically transfer large binary files like the pretrained model during a GitHub source installation you have to copy the pre-trained model into your Conda environment's PySCF directory:
 ```bash
 # 1. Ask Python where PySCF is installed
 PYSCF_PATH=$(python -c "import os, pyscf; print(os.path.dirname(pyscf.__file__))")

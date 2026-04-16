@@ -18,9 +18,9 @@ def main():
     )
     
     # Required arguments
-    parser.add_argument("molecule_file", type=str, help="Path to the molecular geometry file (.xyz)")
-    parser.add_argument("molecule_name", type=str, help="Identifier for the molecule")
-    parser.add_argument("log_root", type=str, help="Directory to save the log files")
+    parser.add_argument("--molecule_file", required=True, type=str, help="Path to the molecular geometry file (.xyz)")
+    parser.add_argument("--molecule_name", required=True, type=str, help="Identifier for the molecule")
+    parser.add_argument("--log_root", required=True, type=str, help="Directory to save the log files")
     
     # Optional argument with a default value
     parser.add_argument("--max_attempts", type=int, default=10, 

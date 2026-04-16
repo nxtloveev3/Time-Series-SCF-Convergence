@@ -60,6 +60,15 @@ Next, build and activate the Conda environment using the provided YAML file:
 conda env create -f requirements.yml
 conda activate adap_scf_env
 ```
+Next, install the custom PySCF with adaptive level shifting:
+```bash
+pip install git+https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting.git
+```
+Now you can run the scripts to generate the time-series feature set and perform adaptive level shifting UHF calculations.
+
+## 1. Feature Extraction
+
+## 2. Deployment with Beta-Rst
 
 ---
 

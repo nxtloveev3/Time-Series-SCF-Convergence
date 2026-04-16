@@ -37,7 +37,7 @@ All datasets used for training, validation, and benchmarking the models are avai
 The optimized model weights for models trained on iSmall-train, iMedium-train, and iLarge-train, are stored with corresponding min-max scalar under the [`Models`](./Models/) directory.
 
 **Bayesian Optimization Result**
-The Bayesian optimized level shifting generated the otpimal shift pairings (converged within 120% of the ideal cycle count identified by BO and calculated spin within 110% of the expected spin) for QM9-H1000 molecules, which can be found in [`QM9H1000_optimal_shifts.csv`](./Data/QM9H1000_optimal_shifts.csv)
+The Bayesian optimized (BO) level shifting generated the otpimal shift pairings (converged within 120% of the ideal cycle count identified by BO and calculated spin within 110% of the expected spin) for QM9-H1000 molecules, which can be found in [`QM9H1000_optimal_shifts.csv`](./Data/QM9H1000_optimal_shifts.csv)
 
 ---
 

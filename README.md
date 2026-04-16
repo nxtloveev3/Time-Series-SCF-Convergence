@@ -5,7 +5,7 @@
 [![Paper](https://img.shields.io/badge/Paper-ChemRxiv-red.svg)](https://doi.org/10.26434/chemrxiv.15001181/v2) **Accelerating Quantum Chemistry Automation: Early Detection and Recovery of SCF Convergence Failure via Time Series Feature Extraction**
 
 ## Overview
-Self-consistent field (SCF) convergence failures remain a major bottleneck in high-throughput quantum chemistry, particularly for open-shell systems. `Time-Series-SCF-Convergence` provides a software-agnostic, data-efficient machine learning pipeline to proactively detect and correct these failures. 
+Self-consistent field (SCF) convergence failures remain a major bottleneck in high-throughput quantum chemistry, particularly for open-shell systems. `Time-Series-SCF-Convergence` pioneers a novel paradigm by treating the iterative SCF procedure as a sequential time-series problem. This software-agnostic, data-efficient pipeline lays the essential groundwork for fully autonomous SCF fine-tuning by accurately predicting convergence outcomes and proactively correcting difficult calculations.
 
 By treating the electronic descriptors in the early SCF iterations as a time-series signal, our lightweight Gradient-Boosted Classifier (GBC) predicts convergence failure before computational resources are wasted. These calculations are then automatically intercepted and rescued using a physically grounded $\beta$-level-shift restart ($\beta$-RST) heuristic derived from Bayesian optimization.
 
@@ -67,9 +67,25 @@ pip install git+https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting.git
 Now you can run the scripts to generate the time-series feature set and perform adaptive level shifting UHF calculations.
 
 ## 1. Feature Extraction
+The `feature_extraction.py` script transforms raw [`/sample_outputs`](./Data/sample_outputs/) (from **TeraChem**) into a structured dataset of **153 statistical descriptors**. These features captures the SCF progression within a 10-iteration window, metrics include:
+* **Central Tendency:** Median and Mean.
+* **Volatility:** Standard deviation and Rolling SD.
+* **Trends:** Slope and Autocorrelation.
+
+### Execution
+Navigate to the [`/Scripts`](./Scripts/) directory and run the extraction:
+```bash
+cd scripts
+python feature_extraction.py`
 
 ## 2. Deployment with Beta-Rst
+adaptive_shifting_pyscf.py takes the molecule path, molecule name, log path, and maximum iteration (calculation restart iterations default to 10) and returns attemps, number of calculation cycle performed in each attempt and the final alpha and beta shift value it landed on. 
 
+simply passing:
+```bash
+cd Scripts
+python adaptive_shifting_pyscf.py <molecule_path> <molecule_name> <log_path> <optional: max_restart_iterations>
+```
 ---
 
 ## Citation

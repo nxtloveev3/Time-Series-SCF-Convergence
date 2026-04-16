@@ -27,6 +27,15 @@ By treating the electronic descriptors in the early SCF iterations as a time-ser
 
 ## Data Availability
 
+**Raw Outputs**
+The raw output files for the doublet anion calculations (TeraChem) are hosted at: [DOI].
+
+**Dataset Access**
+All datasets used for training, validation, and benchmarking the models are available in the [`feature_sets`](./Data/feature_sets/).
+
+**Pre-trained Models**
+The optimized model weights for models trained on iSmall-train, iMedium-train, and iLarge-train, are stored with corresponding min-max scalar under the [`Models`](./Models/) directory.
+
 ---
 
 ## Repository Structure
@@ -102,7 +111,7 @@ This allows the $\beta$-RST logic to be implemented natively using the [ONNX Run
 To export our model you can use the provided `to_onnx` utility in the [`src`](./src/) library to convert your `.pkl` weights into a `.onnx` binary.
 
 ```python
-from src.heuristic_implementation.py import to_onnx
+from src.heuristic_implementation import to_onnx
 
 # Converts the 'iMedium' model to ONNX
 to_onnx(file_path="./Models/iMedium_model.pkl", model_size="iSmall", num_features=6)

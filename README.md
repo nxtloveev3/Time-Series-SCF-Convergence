@@ -67,25 +67,33 @@ pip install git+https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting.git
 Now you can run the scripts to generate the time-series feature set and perform adaptive level shifting UHF calculations.
 
 ## 1. Feature Extraction
-The `feature_extraction.py` script transforms raw [`/sample_outputs`](./Data/sample_outputs/) (from **TeraChem**) into a structured dataset of **153 statistical descriptors**. These features captures the SCF progression within a 10-iteration window, metrics include:
+The `feature_extraction.py` script transforms raw [`sample_outputs`](./Data/sample_outputs/) (from TeraChem) into a structured dataset of **153 statistical descriptors**. These features captures the SCF progression within a 10-iteration window, metrics include:
 * **Central Tendency:** Median and Mean.
 * **Volatility:** Standard deviation and Rolling SD.
 * **Trends:** Slope and Autocorrelation.
 
 ### Execution
-Navigate to the [`/Scripts`](./Scripts/) directory and run the extraction:
+Navigate to the [`Scripts`](./Scripts/) directory and run the extraction:
 ```bash
 cd scripts
 python feature_extraction.py`
-
-## 2. Deployment with Beta-Rst
-adaptive_shifting_pyscf.py takes the molecule path, molecule name, log path, and maximum iteration (calculation restart iterations default to 10) and returns attemps, number of calculation cycle performed in each attempt and the final alpha and beta shift value it landed on. 
-
-simply passing:
-```bash
-cd Scripts
-python adaptive_shifting_pyscf.py <molecule_path> <molecule_name> <log_path> <optional: max_restart_iterations>
 ```
+
+## 2. Deployment with Beta-RST
+
+The `adaptive_shifting_pyscf.py` script serves as the deployment-ready PySCF implementation of the **$\beta$-RST** logic. It acts as an automated "supervisor" for PySCF calculations, using the pre-trained GBC to predict and mitigate convergence failures in real-time.
+
+### Execution
+Navigate to the [`Scripts`](./Scripts/) directory and run the extraction:
+```bash
+cd scripts
+python adaptive_shifting_pyscf.py \
+    --mol_path "./Data/sample_molecules/sample.xyz" \
+    --mol_name "test_molecule_01" \
+    --log_path "./logs" \
+    --max_restarts 10
+```
+
 ---
 
 ## Citation

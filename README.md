@@ -73,7 +73,15 @@ Next, install the custom PySCF with adaptive level shifting:
 ```bash
 pip install git+https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting.git
 ```
-Now you can run the scripts to generate the time-series feature set and perform adaptive level shifting UHF calculations.
+Because [`pip`] do not automatically transfer large binary files like the pretrained model during a GitHub source installation you have to copy the pre-trained model into your Conda environment's PySCF directory:
+```bash
+# 1. Ask Python where PySCF is installed
+PYSCF_PATH=$(python -c "import os, pyscf; print(os.path.dirname(pyscf.__file__))")
+
+# 2. Copy the model into the scf module folder
+cp ./models/iMedium_model.pkl $PYSCF_PATH/scf/
+```
+Now you can run the scripts to generate the time-series feature set and perform adaptive level shifting UHF calculations in PySCF.
 
 ## 1. Feature Extraction
 The `feature_extraction.py` script transforms raw [`sample_outputs`](./Data/sample_outputs/) (from TeraChem) into a structured dataset of **153 statistical descriptors**. These features captures the SCF progression within a 10-iteration window, metrics include:

@@ -69,7 +69,7 @@ Now you can run the scripts to generate the time-series feature set and perform 
 ## 1. Feature Extraction
 The `feature_extraction.py` script transforms raw [`sample_outputs`](./Data/sample_outputs/) (from TeraChem) into a structured dataset of **153 statistical descriptors**. These features captures the SCF progression within a 10-iteration window, metrics include:
 * **Central Tendency:** Median and Mean.
-* **Volatility:** Standard deviation and Rolling SD.
+* **Volatility:** Standard deviation (SD) and Rolling SD.
 * **Trends:** Slope and Autocorrelation.
 
 ### Execution
@@ -87,11 +87,11 @@ The `adaptive_shifting_pyscf.py` script serves as the deployment-ready PySCF imp
 Navigate to the [`Scripts`](./Scripts/) directory and run the extraction:
 ```bash
 cd scripts
-python adaptive_shifting_pyscf.py \
-    --mol_path "./Data/sample_molecules/sample.xyz" \
-    --mol_name "test_molecule_01" \
-    --log_path "./logs" \
-    --max_restarts 10
+python ./scripts/adaptive_shifting_pyscf.py \
+    --molecule_file "./Data/sample_molecules/sample.xyz" \
+    --molecule_name "test_molecule_01" \
+    --log_root "./logs" \
+    --max_attempts 10
 ```
 
 ---

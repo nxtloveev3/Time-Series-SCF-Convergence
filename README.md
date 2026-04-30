@@ -125,7 +125,7 @@ To export our model you can use the provided `to_onnx` utility in the [`src`](./
 from src.heuristic_implementation import to_onnx
 
 # Converts the 'iMedium' model to ONNX
-to_onnx(file_path="./Models/iMedium_model.pkl", model_size="iSmall", num_features=6)
+to_onnx(file_path="./Models/iMedium_model.pkl", model_size="iMedium", num_features=6)
 ```
 Once the model is converted, you can implement the initialization and probability inference functions by following the reference code in [`src`](./src/c_implementation.cpp)
 

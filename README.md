@@ -18,45 +18,23 @@ By treating the electronic descriptors in the early SCF iterations as a time-ser
 
 ## Table of Contents
 1. [Data Availability](#data-availability)
-2. [Repository Structure](#repository-structure)
-3. [Usage](#usage)
-    * [1. Feature Extraction](#1-feature-extraction)
-    * [2. Adaptive Recovery in PySCF](#2-deployment-with-beta-rst)
-4. [Citation](#citation)
-5. [Acknowledgments](#acknowledgments)
+2. [Citation](#citation)
+3. [Acknowledgments](#acknowledgments)
 
 ## Data Availability
 
-**Raw Outputs**
-The raw output files for the doublet anion calculations (TeraChem) are hosted at: [DOI].
+**Extracted SCF Iteraction Information for All Domains**
+The raw output from the doublet anion calculations (TeraChem) for all calculation settings are hosted at Figshare: https://doi.org/10.6084/m9.figshare.32227395.
 
-**Dataset Access**
-All datasets used for training, validation, and benchmarking the models are available in the [`feature_sets`](./Data/feature_sets/).
+**Gradient Boosting Classifier Training and Evaluation**
+All datasets used for training, validation, and testing the models are also available at Figshare: https://doi.org/10.6084/m9.figshare.32227395.
+
+**notebook data**
+All the preprocessed data that is useful for reproducing the paper findings via the jupyter notebooks can be found under the [`notebook_data`](.notebook_data/) directory.
 
 **Pre-trained Models**
-The optimized model weights for models trained on iSmall-train, iMedium-train, and iLarge-train, are stored with corresponding min-max scalar under the [`Models`](./Models/) directory.
+The optimized model weights for models trained on iSmall-train, iMedium-train, and iLarge-train, are stored with corresponding min-max scalar under the [`Models`](.Application/Models/) directory.
 
-**Bayesian Optimization Result**
-The Bayesian optimized (BO) level shifting generated the otpimal shift pairings (converged within 120% of the ideal cycle count identified by BO and calculated spin within 110% of the expected spin) for QM9-H1000 molecules, which can be found in [`QM9H1000_optimal_shifts.csv`](./Data/QM9H1000_optimal_shifts.csv)
-
----
-
-## Repository Structure
-```bash
-Time-Series-SCF-Convergence/
-├── data/                              # Data directory
-│   ├── sample_outputs/                # Raw sample SCF output logs (TeraChem)
-│   └── features/                      # Extracted time-series features sets for iSmall, iMedium, and iLarge
-├── models/                            # Pre-trained GBC weights and scalers
-├── src/                               # Adaptive level shifting workflow modules
-│   ├── extractors/                    # Log parsing and time-series feature generation
-│   └── heuristics_implementation/     # Packaging adpative level shifting approach to be used in QC softwares
-├── scripts/                           # Executable scripts for the adaptive level shifting workflow
-│   ├── 01_features_extraction.py      # Demonstration of feature extraction process for the sample SCF output logs
-│   └── 02_adaptive_shifting_pyscf.py  # Demonstration of running beta-RST heuristic with PySCF
-├── requirements.yml                   # Environment dependencies
-└── README.md
-```
 ---
 
 ## Citation

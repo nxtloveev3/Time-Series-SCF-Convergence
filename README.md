@@ -30,10 +30,10 @@ The raw output from the doublet anion calculations (TeraChem) for all calculatio
 All datasets used for training, validation, and testing the models are also available at Figshare: https://doi.org/10.6084/m9.figshare.32227395.
 
 **notebook data**
-All the preprocessed data that is useful for reproducing the paper findings via the jupyter notebooks can be found under the [`notebook_data`](.notebook_data/) directory.
+All the preprocessed data that is useful for reproducing the paper findings via the jupyter notebooks can be found under the [`notebook_data`](./notebook_data/) directory.
 
 **Pre-trained Models**
-The optimized model weights for models trained on iSmall-train, iMedium-train, and iLarge-train, are stored with corresponding min-max scalar under the [`Models`](.Application/Models/) directory.
+The optimized model weights for models trained on iSmall-train, iMedium-train, and iLarge-train, are stored with corresponding min-max scalar under the [`Models`](./Application/Models/) directory.
 
 ---
 

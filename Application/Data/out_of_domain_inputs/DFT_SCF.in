@@ -1,0 +1,12 @@
+# TeraChem input deck: energy.in
+coordinates         dsgdb9nsd_000001.xyz
+method              ub3lyp
+basis               6-31++G**
+scf                 diis
+charge              -1
+spinmult            2
+maxit               2000
+run                 energy
+
+timings            yes
+end

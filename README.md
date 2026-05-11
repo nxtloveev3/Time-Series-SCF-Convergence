@@ -22,18 +22,22 @@ By treating the electronic descriptors in the early SCF iterations as a time-ser
 3. [Acknowledgments](#acknowledgments)
 
 ## Data Availability
-
 **Extracted SCF Iteraction Information for All Domains**
 The raw output from the doublet anion calculations (TeraChem) for all calculation settings are hosted at Figshare: https://doi.org/10.6084/m9.figshare.32227395.
 
 **Gradient Boosting Classifier Training and Evaluation**
-All datasets used for training, validation, and testing the models are also available at Figshare: https://doi.org/10.6084/m9.figshare.32227395.
-
-**notebook data**
-All the preprocessed data that is useful for reproducing the paper findings via the jupyter notebooks can be found under the [`notebook_data`](./notebook_data/) directory.
+All datasets used for training, validation, and testing the gradient boosting classifiers are also available at Figshare: https://doi.org/10.6084/m9.figshare.32227395.
 
 **Pre-trained Models**
 The optimized model weights for models trained on iSmall-train, iMedium-train, and iLarge-train, are stored with corresponding min-max scalar under the [`Models`](./Application/Models/) directory.
+
+**Reproduce Paper Findings**
+To replicate the main text figures, supplementary information (SI) figures, and the performance evaluations presented in our study, we have provided a suite of interactive Jupyter notebooks. 
+
+All scripts necessary to recreate these findings are located in the [`sample_notebooks/`](./sample_notebooks/) directory. Please ensure you have downloaded and extracted the `notebook_data.zip` archive from Figshare into the `notebook_data/` folder before executing these notebooks.
+
+**notebook data**
+All the preprocessed data that is useful for reproducing the paper findings via the jupyter notebooks can be found under the [`notebook_data`](./notebook_data/) directory.
 
 ---
 

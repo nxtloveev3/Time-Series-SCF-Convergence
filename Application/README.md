@@ -1,3 +1,6 @@
+# Deployment Guide: Integrating Adaptive Level-Shifting into Quantum Chemistry Software
+Welcome to the `application` directory. This folder contains the deployment-ready scripts, pre-trained models, and C/C++ reference implementations necessary to integrate our automated SCF recovery approach into your prefered quantum chemistry packages.
+
 ## Usage
 We recommend using Conda (or Mamba) to install the required dependencies and ensure version compatibility.
 

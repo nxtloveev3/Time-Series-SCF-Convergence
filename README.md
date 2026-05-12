@@ -1,8 +1,8 @@
-# Time-Series-SCF-Convergence
+# Early Detection and Recovery of SCF Convergence Failures in Automated Quantum Chemistry Workflows via Time-Series Learning
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![Paper](https://img.shields.io/badge/Paper-ChemRxiv-red.svg)](https://chemrxiv.org/doi/full/10.26434/chemrxiv.15001181/v3) **Early Detection and Recovery of SCF Convergence Failures in Automated Quantum Chemistry Workflows via Time-Series Learning**
+[![Paper](https://img.shields.io/badge/Paper-ChemRxiv-red.svg)](https://chemrxiv.org/doi/full/10.26434/chemrxiv.15001181/v3)
 
 ## Overview
 Self-consistent field (SCF) convergence failures remain a major bottleneck in high-throughput quantum chemistry, particularly for open-shell systems. `Time-Series-SCF-Convergence` pioneers a novel paradigm by treating the iterative SCF procedure as a sequential time-series problem. This software-agnostic, data-efficient pipeline lays the essential groundwork for fully autonomous SCF fine-tuning by accurately predicting convergence outcomes and proactively correcting difficult calculations.

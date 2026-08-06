@@ -1,0 +1,13 @@
+domain,case_type,method,method_label,molecules,converged_count,unconverged_count,convergence_percent,converged_iterations,unconverged_iterations,total_iterations
+pyscf,Easy,beta_rst,$\beta$-RST,143,142,1,99.3006993006993,8339.0,2000.0,10339.0
+pyscf,Easy,adiis,ADIIS,143,143,0,100.0,16932.0,0.0,16932.0
+pyscf,Easy,restart_beta,$\beta$-LS,143,135,8,94.4055944055944,7841.0,16000.0,23841.0
+pyscf,Easy,continuous_beta,$\beta$-LS cont.,143,134,9,93.7062937062937,6305.0,18000.0,24305.0
+pyscf,Easy,damping,Damping,143,142,1,99.3006993006993,4349.0,2000.0,6349.0
+pyscf,Easy,mom,MOM,143,108,35,75.52447552447552,5669.0,70000.0,75669.0
+pyscf,Difficult,beta_rst,$\beta$-RST,57,47,10,82.45614035087719,3679.0,20188.0,23867.0
+pyscf,Difficult,adiis,ADIIS,57,55,2,96.49122807017544,6818.0,4000.0,10818.0
+pyscf,Difficult,restart_beta,$\beta$-LS,57,3,54,5.2631578947368425,102.0,108000.0,108102.0
+pyscf,Difficult,continuous_beta,$\beta$-LS cont.,57,3,54,5.2631578947368425,102.0,108000.0,108102.0
+pyscf,Difficult,damping,Damping,57,18,39,31.57894736842105,2362.0,78000.0,80362.0
+pyscf,Difficult,mom,MOM,57,2,55,3.508771929824561,45.0,110000.0,110045.0

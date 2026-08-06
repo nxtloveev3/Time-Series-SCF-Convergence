@@ -1,0 +1,41 @@
+domain,domain_label,case_type,method,method_label,available_count,converged_count,unconverged_count,missing_count,total_count,convergence_percent
+default,iQM9-default,Easy,beta_rst,$\beta$-RST,100,100,0,0,100,100.0
+default,iQM9-default,Easy,adiis,ADIIS,0,0,0,100,100,0.0
+default,iQM9-default,Easy,restart_beta,$\beta$-LS,0,0,0,100,100,0.0
+default,iQM9-default,Easy,continuous_beta,$\beta$-LS cont.,0,0,0,100,100,0.0
+default,iQM9-default,Hard,beta_rst,$\beta$-RST,100,69,31,0,100,69.0
+default,iQM9-default,Hard,adiis,ADIIS,0,0,0,100,100,0.0
+default,iQM9-default,Hard,restart_beta,$\beta$-LS,0,0,0,100,100,0.0
+default,iQM9-default,Hard,continuous_beta,$\beta$-LS cont.,0,0,0,100,100,0.0
+large_basis,iQM9-large-basis,Easy,beta_rst,$\beta$-RST,100,98,2,0,100,98.0
+large_basis,iQM9-large-basis,Easy,adiis,ADIIS,0,0,0,100,100,0.0
+large_basis,iQM9-large-basis,Easy,restart_beta,$\beta$-LS,0,0,0,100,100,0.0
+large_basis,iQM9-large-basis,Easy,continuous_beta,$\beta$-LS cont.,0,0,0,100,100,0.0
+large_basis,iQM9-large-basis,Hard,beta_rst,$\beta$-RST,100,66,34,0,100,66.0
+large_basis,iQM9-large-basis,Hard,adiis,ADIIS,0,0,0,100,100,0.0
+large_basis,iQM9-large-basis,Hard,restart_beta,$\beta$-LS,0,0,0,100,100,0.0
+large_basis,iQM9-large-basis,Hard,continuous_beta,$\beta$-LS cont.,0,0,0,100,100,0.0
+hcore,iQM9-hcore,Easy,beta_rst,$\beta$-RST,100,96,4,0,100,96.0
+hcore,iQM9-hcore,Easy,adiis,ADIIS,0,0,0,100,100,0.0
+hcore,iQM9-hcore,Easy,restart_beta,$\beta$-LS,0,0,0,100,100,0.0
+hcore,iQM9-hcore,Easy,continuous_beta,$\beta$-LS cont.,0,0,0,100,100,0.0
+hcore,iQM9-hcore,Hard,beta_rst,$\beta$-RST,100,91,9,0,100,91.0
+hcore,iQM9-hcore,Hard,adiis,ADIIS,0,0,0,100,100,0.0
+hcore,iQM9-hcore,Hard,restart_beta,$\beta$-LS,0,0,0,100,100,0.0
+hcore,iQM9-hcore,Hard,continuous_beta,$\beta$-LS cont.,0,0,0,100,100,0.0
+qm40,iQM40-default,Easy,beta_rst,$\beta$-RST,159,141,18,0,159,88.67924528301887
+qm40,iQM40-default,Easy,adiis,ADIIS,0,0,0,159,159,0.0
+qm40,iQM40-default,Easy,restart_beta,$\beta$-LS,0,0,0,159,159,0.0
+qm40,iQM40-default,Easy,continuous_beta,$\beta$-LS cont.,0,0,0,159,159,0.0
+qm40,iQM40-default,Hard,beta_rst,$\beta$-RST,41,14,27,0,41,34.146341463414636
+qm40,iQM40-default,Hard,adiis,ADIIS,0,0,0,41,41,0.0
+qm40,iQM40-default,Hard,restart_beta,$\beta$-LS,0,0,0,41,41,0.0
+qm40,iQM40-default,Hard,continuous_beta,$\beta$-LS cont.,0,0,0,41,41,0.0
+dft,iQM40-DFT,Easy,beta_rst,$\beta$-RST,129,125,4,0,129,96.89922480620154
+dft,iQM40-DFT,Easy,adiis,ADIIS,0,0,0,129,129,0.0
+dft,iQM40-DFT,Easy,restart_beta,$\beta$-LS,0,0,0,129,129,0.0
+dft,iQM40-DFT,Easy,continuous_beta,$\beta$-LS cont.,0,0,0,129,129,0.0
+dft,iQM40-DFT,Hard,beta_rst,$\beta$-RST,71,6,65,0,71,8.450704225352112
+dft,iQM40-DFT,Hard,adiis,ADIIS,0,0,0,71,71,0.0
+dft,iQM40-DFT,Hard,restart_beta,$\beta$-LS,0,0,0,71,71,0.0
+dft,iQM40-DFT,Hard,continuous_beta,$\beta$-LS cont.,0,0,0,71,71,0.0

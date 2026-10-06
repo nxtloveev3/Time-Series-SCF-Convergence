@@ -1,74 +1,82 @@
-# Deployment Guide: Integrating Adaptive Level-Shifting into Quantum Chemistry Software
-Welcome to the `application` directory. This folder contains the deployment-ready scripts, pre-trained models, and C/C++ reference implementations necessary to integrate our automated SCF recovery approach into your prefered quantum chemistry packages.
+# Running SCF Feature Extraction and Adaptive Recovery
 
-## Usage
-We recommend using Conda (or Mamba) to install the required dependencies and ensure version compatibility.
+This directory contains sample inputs, trained classifiers, and research implementations for SCF failure prediction and beta-level-shift restart (beta-RST). The adaptive calculation example requires the project's modified PySCF fork. The C/C++ file is an integration snippet, not a standalone executable.
 
-First, clone the repository and navigate into it:
+## Environment Setup
+
+Start at the repository root:
+
 ```bash
-git clone https://github.com/yourusername/Time-Series-SCF-Convergence.git
+git clone https://github.com/nxtloveev3/Time-Series-SCF-Convergence.git
 cd Time-Series-SCF-Convergence
-```
-Next, build and activate the Conda environment using the provided YAML file:
-```bash
-conda env create -f requirements.yml
+conda env create -f Application/requirements.yml
 conda activate adap_scf_env
 ```
-Next, install the custom PySCF with adaptive level shifting:
-```bash
-pip install git+https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting.git
-```
-Because `pip` do not automatically transfer large binary files like the pretrained model during a GitHub source installation you have to copy the pre-trained model into your Conda environment's PySCF directory:
-```bash
-# 1. Ask Python where PySCF is installed
-PYSCF_PATH=$(python -c "import os, pyscf; print(os.path.dirname(pyscf.__file__))")
 
-# 2. Copy the model into the scf module folder
-cp ./models/iMedium_model.pkl $PYSCF_PATH/scf/
-```
-Now you can run the scripts to generate the time-series feature set and perform adaptive level shifting UHF calculations in PySCF.
+The environment includes dependencies for feature extraction, the notebooks, and ONNX tools. The following examples use **`Application/` as the working directory**:
 
-## 1. Feature Extraction
-The `feature_extraction.py` script transforms raw [`sample_outputs`](./Data/sample_outputs/) (from TeraChem) into a structured dataset of **153 statistical descriptors**. These features captures the SCF progression within a 10-iteration window, metrics include:
-* **Central Tendency:** Median and Mean.
-* **Volatility:** Standard deviation (SD) and Rolling SD.
-* **Trends:** Slope and Autocorrelation.
-
-### Execution
-Navigate to the [`Scripts`](./Scripts/) directory and run the extraction:
 ```bash
-cd scripts
-python feature_extraction.py`
+cd Application
 ```
 
-## 2. Deployment with Beta-RST
+Keep this working directory for each command below. Directory names such as `Scripts`, `Models`, and `Data` are case-sensitive.
 
-The `adaptive_shifting_pyscf.py` script serves as the deployment-ready [PySCF](https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting) implementation of the **$\beta$-RST** logic. It acts as an automated "supervisor" for PySCF calculations, using the pre-trained GBC to predict and mitigate convergence failures in real-time.
+## 1. Extract Features from Bundled Outputs
 
-### Execution
-Navigate to the [`Scripts`](./Scripts/) directory and run the extraction:
 ```bash
-cd scripts
-python ./scripts/adaptive_shifting_pyscf.py \
-    --molecule_file "./Data/sample_molecules/sample.xyz" \
-    --molecule_name "test_molecule_01" \
-    --log_root "./logs" \
+python Scripts/feature_extraction.py
+```
+
+The script reads [`Data/sample_outputs/`](./Data/sample_outputs/) and writes `sample_ts_feature_set.csv` in your current directory. It generates 153 descriptors for each of the 10 bundled outputs: 17 signals, including two frontier-orbital gaps, with nine statistics per signal. The CSV also contains an index column.
+
+This example does not run new quantum chemistry calculations. The features describe a 10-iteration window using statistics such as median, standard deviation, slope, fluctuation range, extrema count, and autocorrelation.
+
+## 2. Install the Adaptive PySCF Fork
+
+The modified SCF driver is pinned to a specific revision in [`requirements-pyscf.txt`](./requirements-pyscf.txt):
+
+```bash
+python -m pip install -r requirements-pyscf.txt
+```
+
+This installs PySCF from source and requires Git, a C/C++ compiler, and the native build dependencies supported by PySCF. Its Python build requirements include CMake. Installation can take longer than the base environment setup.
+
+Copy the classifier into the installed fork's SCF directory, where its driver expects to find it:
+
+```bash
+SCF_PACKAGE_DIR=$(python -c 'from pathlib import Path; import pyscf; print(Path(pyscf.__file__).resolve().parent / "scf")')
+cp Models/iMedium_model.pkl "$SCF_PACKAGE_DIR/iMedium_model.pkl"
+```
+
+The upstream PySCF release does not implement this fork's `dynamic_ls` behavior. Use the pinned fork for the adaptive example.
+
+## 3. Run a Bundled Molecule
+
+```bash
+python Scripts/adaptive_shifting_pyscf.py \
+    --molecule_file Data/sample_molecules/dsgdb9nsd_000970.xyz \
+    --molecule_name dsgdb9nsd_000970 \
+    --log_root logs \
     --max_attempts 10
 ```
 
-### Implement Our Model with C/C++ Inference 
-For high-performance integration into quanutm chemistry packages (e.g., C, C++, wrappers), we provide a workflow to export the trained GBC to the **ONNX (Open Neural Network Exchange)** format. 
+The example performs UHF/6-31++G** calculations for a doublet anion with an hcore initial guess. It reports restart information in the terminal and writes a detailed log to `logs/dsgdb9nsd_000970_beta_RST_log.txt`. Runtime and convergence depend on the molecule and hardware; check the log for the final convergence outcome.
 
-This allows the $\beta$-RST logic to be implemented natively using the [ONNX Runtime (ORT)](https://onnxruntime.ai/) without requiring a Python interpreter at runtime.
+## 4. Export a Classifier to ONNX
 
-To export our model you can use the provided `to_onnx` utility in the [`src`](./src/) library to convert your `.pkl` weights into a `.onnx` binary.
+After installing the fork above, run this from `Application/`:
 
-```python
+```bash
+python - <<'PY'
 from src.heuristic_implementation import to_onnx
 
-# Converts the 'iMedium' model to ONNX
-to_onnx(file_path="./Models/iMedium_model.pkl", model_size="iMedium", num_features=6)
+output_path = to_onnx(output_dir="exports", model_size="iMedium", num_features=6)
+print(output_path)
+PY
 ```
-Once the model is converted, you can implement the initialization and probability inference functions by following the reference code in [`src`](./src/c_implementation.cpp)
 
----
+The function loads `Models/iMedium_model.pkl`, checks the feature count, creates the output directory, and writes `exports/gbc_iMedium.onnx`. `output_dir` is a **directory**, not the path to the input pickle. The model identifier can also be `iSmall` or `iLarge`.
+
+The exported model accepts a float32 tensor named `x` with shape `[batch_size, 6]` and exposes class labels and probabilities. It exports the classifier only: callers must supply the same six selected features, in the same order and with the same preprocessing used during training. The 153-column extraction output cannot be passed directly to this model.
+
+[`src/c_implementation.cpp`](./src/c_implementation.cpp) shows ONNX Runtime session initialization and inference calls. To integrate it into another program, supply the ONNX Runtime headers and libraries, the surrounding state declarations and error-handling macro, and the feature-preprocessing code. Validate predicted probabilities against the Python classifier before using an integration for calculations.

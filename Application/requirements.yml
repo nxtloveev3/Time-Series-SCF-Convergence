@@ -10,4 +10,11 @@ dependencies:
   - scikit-learn=1.6.1
   - onnx
   - skl2onnx
+  - onnxruntime
+  - matplotlib
+  - seaborn
+  - statsmodels
+  - jupyterlab
+  - pytorch
+  - gpytorch
   - pip

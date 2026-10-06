@@ -4,33 +4,50 @@ import pyscf
 from pyscf import lib
 from pyscf.scf import uhf
 from pathlib import Path
+from sklearn.ensemble import GradientBoostingClassifier
 from skl2onnx import convert_sklearn
 from skl2onnx.common.data_types import FloatTensorType
 import onnx
 
-def to_onnx(file_path, model_size="iSmall", num_features=6):
+def to_onnx(output_dir: str | Path, model_size: str, num_features: int) -> Path:
     """
     Converts a trained scikit-learn model to ONNX format for native C/C++ inference.
 
-    Args: file_path (str): Path to save the ONNX model.
-          model_size (str): Identifier for the model size (e.g., "iSmall", "iMedium", "iLarge").
-          num_features (int): Number of features expected by the model.
+    Args:
+        output_dir: Directory in which to write gbc_{model_size}.onnx.
+        model_size: Bundled model identifier: iSmall, iMedium, or iLarge.
+        num_features: Input width, which must match the saved classifier.
 
-    Returns: None. Saves the ONNX model to provided file_path.
+    Returns:
+        Path to the exported ONNX model. Inputs must use the same feature order
+        and preprocessing as the classifier; this exports the classifier only.
     """
-    model_folder = Path(__file__).resolve().parent.parent / "models"
-    model_path = model_folder / f"{model_size}_model.pkl"
+    if model_size not in {"iSmall", "iMedium", "iLarge"}:
+        raise ValueError(f"Unknown model_size {model_size!r}; expected iSmall, iMedium, or iLarge.")
+    model_folder: Path = Path(__file__).resolve().parent.parent / "Models"
+    model_path: Path = model_folder / f"{model_size}_model.pkl"
     
     with open(model_path, "rb") as f:
-        gbc = pickle.load(f)
+        gbc: GradientBoostingClassifier = pickle.load(f)
 
-    initial_types = [("x", FloatTensorType([None, num_features]))]
-    onnx_model = convert_sklearn(gbc, initial_types=initial_types, options={"zipmap": False})
+    if not isinstance(gbc, GradientBoostingClassifier):
+        raise TypeError(f"Expected GradientBoostingClassifier in {model_path}, got {type(gbc).__name__}.")
+    if num_features != gbc.n_features_in_:
+        raise ValueError(
+            f"Model {model_path} expects {gbc.n_features_in_} features, got {num_features}."
+        )
 
-    output_filename = f"gbc_{model_size}.onnx"
-    output_filepath = os.path.join(file_path, output_filename)
+    initial_types: list[tuple[str, FloatTensorType]] = [("x", FloatTensorType([None, num_features]))]
+    onnx_model: onnx.ModelProto = convert_sklearn(
+        gbc, initial_types=initial_types, options={"zipmap": False}
+    )
+    onnx.checker.check_model(onnx_model)
+
+    output_folder: Path = Path(output_dir)
+    output_folder.mkdir(parents=True, exist_ok=True)
+    output_filepath: Path = output_folder / f"gbc_{model_size}.onnx"
     onnx.save_model(onnx_model, output_filepath)
-    print(f"Successfully exported ONNX model to {output_filepath}")
+    return output_filepath
 
 
 def extract_molecule_PySCF(file_path, basis='6-31++G**'):

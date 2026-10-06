@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+.DS_Store
+/sample_ts_feature_set.csv
+/Application/sample_ts_feature_set.csv
+/Application/exports/
+/Application/logs/
+/sample_notebooks/Figure_*.pdf

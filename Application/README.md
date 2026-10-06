@@ -41,14 +41,19 @@ python -m pip install -r requirements-pyscf.txt
 
 This installs PySCF from source and requires Git, a C/C++ compiler, and the native build dependencies supported by PySCF. Its Python build requirements include CMake. Installation can take longer than the base environment setup.
 
-Copy the classifier into the installed fork's SCF directory, where its driver expects to find it:
+Copy the classifier and its training-set scaler into the installed fork's SCF directory, where its driver expects to find both files:
 
 ```bash
 SCF_PACKAGE_DIR=$(python -c 'from pathlib import Path; import pyscf; print(Path(pyscf.__file__).resolve().parent / "scf")')
 cp Models/iMedium_model.pkl "$SCF_PACKAGE_DIR/iMedium_model.pkl"
+cp Models/medium_scaler.pkl "$SCF_PACKAGE_DIR/medium_scaler.pkl"
 ```
 
 The upstream PySCF release does not implement this fork's `dynamic_ls` behavior. Use the pinned fork for the adaptive example.
+
+The fork applies `medium_scaler.pkl` to the six selected features before classification. This scaler is fitted on the 10,000 raw training rows in `SCF_data_sets/iMedium_train.csv` from the [Figshare dataset](https://doi.org/10.6084/m9.figshare.32227395). Its feature order is energy extrema count, alpha HOMO median, alpha HOMO extrema count, beta HOMO-1 median, beta HOMO median, and alpha gap median. The archived validation and test feature columns are already scaled; do not transform them again.
+
+Changing the inference scaler changes restart decisions. The paper's saved recovery results describe the original experiments; the updated preprocessing requires a new recovery benchmark before attributing those results to this revision.
 
 ## 3. Run a Bundled Molecule
 

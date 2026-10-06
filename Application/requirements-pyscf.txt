@@ -1,2 +1,2 @@
 # Adaptive SCF requires this fork, rather than the standard PySCF release.
-pyscf @ git+https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting.git@8471126019d7e55038d160412eb7e1b1bb7fa608
+pyscf @ git+https://github.com/nxtloveev3/pyscf_Adaptive_Level_Shifting.git@0f4132ba2747e06bad1611aea156757f549fd831
